@@ -1,21 +1,42 @@
 package com.safelinevr.safeline_api.controller;
 
-import com.safelinevr.safeline_api.entity.Solution;
+import com.safelinevr.safeline_api.dto.SolutionCategoryDto;
+import com.safelinevr.safeline_api.dto.SolutionDetailDto;
 import com.safelinevr.safeline_api.service.SolutionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import java.util.List;
 
-@RequiredArgsConstructor
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @RestController
+@RequestMapping("/api/solutions")
+@RequiredArgsConstructor
 public class SolutionController {
 
-    private final SolutionService solutionService; 
+    private final SolutionService solutionService;
 
-    // GET 방식으로 /api/solutions 라는 주소로 요청이 오면 이 메소드가 실행됩니다.
-    @GetMapping("/api/solutions")
-    public List<Solution> getSolutions() {
-        return solutionService.getAllSolutions();
+    @GetMapping
+    public ResponseEntity<Map<String, List<SolutionCategoryDto>>> getAllSolutions() {
+        // Service를 통해 그룹화된 DTO 리스트를 가져옴
+        List<SolutionCategoryDto> solutionCategories = solutionService.findAllSolutionsGroupedByCategory();
+
+        Map<String, List<SolutionCategoryDto>> response = new HashMap<>();
+        response.put("solutionCategories", solutionCategories);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{link}")
+    public ResponseEntity<SolutionDetailDto> getSolutionByLink(@PathVariable String link) {
+        SolutionDetailDto solutionDetailDto = solutionService.findSolutionByLink(link);
+
+        return ResponseEntity.ok(solutionDetailDto);
     }
 }

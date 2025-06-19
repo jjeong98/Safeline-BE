@@ -4,12 +4,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
-@Entity // 이 클래스가 데이터베이스의 테이블과 연결됨을 나타냅니다.
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
 public class Solution {
 
     @Id // 이 필드가 테이블의 고유 식별자(Primary Key)임을 나타냅니다.

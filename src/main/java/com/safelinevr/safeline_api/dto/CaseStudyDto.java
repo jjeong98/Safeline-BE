@@ -4,13 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SolutionCategoryDto {
-    private String title;
-    private String description;
-    private List<SolutionItemDto> items;
+public class CaseStudyDto {
+    private String id;
+    private String clientName;
+    private String clientLogo;
+    private String impactHeadline;
 }
