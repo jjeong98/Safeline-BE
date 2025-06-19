@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CaseStudyRepository extends JpaRepository<CaseStudy, Long> {
+    java.util.Optional<CaseStudy> findBySlug(String slug);
 }

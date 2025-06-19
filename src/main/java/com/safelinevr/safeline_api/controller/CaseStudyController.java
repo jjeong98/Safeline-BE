@@ -1,10 +1,12 @@
 package com.safelinevr.safeline_api.controller;
 
+import com.safelinevr.safeline_api.dto.CaseStudyDetailDto;
 import com.safelinevr.safeline_api.dto.CaseStudyDto;
-import com.safelinevr.safeline_api.service.CaseStudyService; // import 추가
-import lombok.RequiredArgsConstructor; // import 추가
+import com.safelinevr.safeline_api.service.CaseStudyService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,5 +30,11 @@ public class CaseStudyController {
         response.put("caseStudies", caseStudies);
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{slug}")
+    public ResponseEntity<CaseStudyDetailDto> getCaseStudyBySlug(@PathVariable String slug) {
+        CaseStudyDetailDto caseStudyDetailDto = caseStudyService.findCaseStudyBySlug(slug);
+        return ResponseEntity.ok(caseStudyDetailDto);
     }
 }

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,19 +23,15 @@ public class SolutionController {
 
     @GetMapping
     public ResponseEntity<Map<String, List<SolutionCategoryDto>>> getAllSolutions() {
-        // Service를 통해 그룹화된 DTO 리스트를 가져옴
         List<SolutionCategoryDto> solutionCategories = solutionService.findAllSolutionsGroupedByCategory();
-
         Map<String, List<SolutionCategoryDto>> response = new HashMap<>();
         response.put("solutionCategories", solutionCategories);
-
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{link}")
     public ResponseEntity<SolutionDetailDto> getSolutionByLink(@PathVariable String link) {
         SolutionDetailDto solutionDetailDto = solutionService.findSolutionByLink(link);
-
         return ResponseEntity.ok(solutionDetailDto);
     }
 }
